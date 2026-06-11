@@ -3,56 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Доступ к VPN</title>
+    <title>Connect PANEL</title>
     <style>
-        body { font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background: #121212; color: white; margin: 0; text-align: center; }
-        .btn { display: inline-block; padding: 20px 40px; font-size: 20px; color: white; background: #007aff; text-decoration: none; border-radius: 12px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,122,255,0.4); margin-top: 20px; transition: 0.2s; }
-        .btn:hover { background: #0063cc; }
-        .error { color: #ff3b30; font-size: 18px; font-weight: bold; padding: 20px; }
-        h1 { margin: 0 0 10px 0; font-size: 24px; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #38bdf8;
+        }
+        p {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+        .btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+        }
+        .error-msg {
+            color: #f87171;
+            margin-top: 15px;
+            font-size: 14px;
+            display: none;
+        }
     </style>
 </head>
 <body>
 
-    <div id="content" style="display: none;">
-        <h1 id="welcome">Доступ разрешен</h1>
-        <p>Нажми на кнопку ниже, чтобы автоматически добавить свой ключ в приложение Happ.</p>
-        <a id="vpn-link" class="btn" href="#">🚀 Подключить VPN</a>
-    </div>
-
-    <div id="error-message" class="error" style="display: none;">
-        ❌ Ошибка: Доступ ограничен. Неверный ключ авторизации.
+    <div class="container">
+        <h1>MASTERPVP | VPN</h1>
+        <p id="status-text">Нажмите кнопку ниже для подключения конфигурации</p>
+        
+        <a href="#" id="connect-btn" class="btn">ПОДКЛЮЧИТЬ</a>
+        
+        <div id="error-box" class="error-msg">Ошибка: Доступ по этой ссылке не найден!</div>
     </div>
 
     <script>
-        // АБСОЛЮТНО АНОНИМНАЯ БАЗА ДАННЫХ
-        const config = {
-            "user1111": "happ://crypt5/neirKslQ3JuuzwvW2l19vfJdhxq0L98nBqgg9Pso/HyBg5W1rE2LN6s/5bmIagQ+LfC4YPYGCXFvl3qwphd4WjKIPKS0bdZ7lSmS/qNHFAF3q3xbIO2ObmrOH5BFLxQwzlQFrhK9e74jyNtdo/sEUeYhKaflGKv2A+BZ/zq1NGYe7dfEluHIooBdPtFdfl0FgNcssOOfyK6vC1KgYKVnkPcjTFmtKLn7jkyUbll3tQUz9CwqSUhbRleX+1qJw9uDzqPoHfnF7h2zsNn1bJkyxK7H6SG4EOEDRUqmFpmFkVCl9geftXD8AGgAB+djGkkItAnwKJXNSjZZTyDwUk6ICF77LV3g2GoynzpFhHraunKAUe4OUe2XiC+cidwp8lzuJcU8LgNu0NpB1VlrN63ATET+UR0+QkFzrI28AfOuK9Vvi7UXtJsi/p9mzopVq+x33oC/ehU6Lo21pwnfZL24hmjTJk06uUBTam5/uMW/MDCWPb52iVJt4nFaNOharHgjCqyyoa26lXOW3B2/OU2OEv8p6qvezdGMdohPAwEXk9M+QFJGWjvkadn20CIaPvek+++TTz2xOfLBrmxVwLNZCjWnVfcIup2t8aT31X5znXwftOvahEemVk7W5fYymnN/zX3+JpXYtLyOegDetz5lT9Fv8wdTjH3nlvv1+AvevUQ+h+G4wNzDBzE7dPW9xYoUwNy4MKVVATI2DeiwgEFLKRIrcGsAIoAC90K6Q4OF7ZTakndT5WAnpbfUKEzGeJQD8f1D3e87a6iG3MneCzf29jJp8hl62Nc9/n6Z4wOJjvoUld6NaRHNeE4py0QPxicwpO4iZaQoOxOQMh7042Xpezd8qfeLrROHCRncBbz4ycFQRogO3srqcypkgkew4=B2ftjv",
-            "user1221": "happ://crypt5/neiryfqliybLAUqF2f19Ph+Fjf6uS+ZHGCHii4MqT5PL1n67361Ttu+M7gpm0IYN5b67Ra+/EE3CG+laG7pN1tLmWPh5Mv0YPy7/OlOy7jF0EpnYjjpwoyDPkbpulQ++/V/0WgPrDl3Q3kB7RurtBpSbPMVhF9HUvDOPOXIY2tE/NWJI+XtRwWo99Dz5/Cx4ameJWHmk69N2ED3fEmhkQ9JIU4D+HcqW8P1aeMqqMjtdvVTPzME3FrWbEjJCPIkRxTXktMNMGcjUwjKOyudSwqXwYcaUzmCBnlu1gPzn+Ape0nsKwAPX2L44wXQDfSt5uEeGOzQFXCzOxI1j+YMeoIOb4HFYZ1RXA5wcPrF3w+/ikajpwtvweBLLDCJI0RuOmPLGxOYZeYvQ74c91yDQqVDF+puVaTR83JrR6OSZ6iB9PuU0TuRiJAoEsje0WLbaB/BuXHfAgmo5CfsJV/rDPJ8L6Y9wZIIxb8Ho10bPaUq2y6xMO9jF3nmZHBc3aLJuO9tN8jT5q295xh4yQJe+2ih5lC16i6OzUeQEfhyIiYjkqgRKHYuECqk1GFfr11RRmpObZfkaCWs66xdU67vK3UwXiED/nb6YaUenzq4jTy7CTWrSYoAUiRU7j+19rPGkGf6RiJ4T7qFE8epsZ6P0qTpcUFfi270JSPXsThN3XWQRkSKr5QHWRNCt3otYJekz5i6Y+gxicsCqvHh18JrTzRQ4tlwaXizSLiBFgy16mh6UTNnPtmLJOIcZYNg1MHc1ZXfeEPgmcoNxaBDDwQ6C5UtiR7jWXw1xAvpQ8o4CxosAWVN2+vHPW+GBlCzBjrfdPAM1ALnX1GvAF+grTd7U4GLWbW2E7DIW+LdMnpHz85U/wG06mVy12gyLJzbVw=mWftjv",
-            "user3344": "happ://crypt5/neirvdah77Kh8c9e2t19yNrKrxk9U0CRsS094bETsCX8YT1v2NQOdEWAEL3EbO0g6f6gtb9wQ3S6tduTXYFAr8zdwgKufSNuXfLWFq3HLQvk5s6fDXNzf+7VoeC5JX6cSNWMhS7a3gGxI0uxCA2d7oxArZ5TrB0DbTolARqlnC6M2taW9pyb7aVlw7wA7hw2ptls85uI9o1NnyQdjfQJbaVyEIgisQ7IyaUIq628r8SRnhKPpILvPju215O9OqZ/FcapXTWkD42XGFwcJ9pWKYSxNkBvQhXslX4/qK+Ou+ZdP9NE60PV65iiRZQ7Htn0/3eQye4hz2wq+4ckobPV6z7+KPVTALW9VC+yE9DtruBqELUGW3+uEcuMS9c9gswbHIQKm367NbU/ShvDqgfVeB/bsl9/Ki7qcEba/N7cL4Qu8TdgWFBQkzwvKSc2GkNFW+fpIe4D5nrMpp3V8IBw0CZ2kj4KXJ19e/lRDihaoCHC4lKxPO61zer9w34p9mzC51bJXB5tm+A2smcxDsmt653wYfmRrvpWrCRGsJmJjbPCSnnAkfKOGAq5Xq35OaUwOl7R+d4vSS2RjvNeY4yyZCsC2tSAt3VO1MXpWhYGEtMuDG+Nfux/HG2blfzoL6FUTGJVJkIxAAx3qbF22IMYAcOzKSyFY7Y96hRZB/mAmQLiphb1diIgEkDNAaVMcYI+3MnGlTJ/t+pA5yvbv6IZW9Hd9m0NIyqWerJBROclAjRcN40t8vFUdSP1llwAV2kjy5KH9kFU7fYlLq/hqlNuRccOYGmaSlZ68pISCalHlEluRiHESAijAhqrOLwnx+Afz4Q2tM3WhzAXkK7Beb0Vu2ZKTg8YuSwOoRYmLmPGq4qPLNE/sqGxcaTJsq4sI=n+ftjv",
-            "user5566": "happ://crypt5/neir98mHGhUdVkLA2h19ktbTj+FDqRQs5jO4Djm3AlmV83g/dz6iCqNJ8oG6HEDlp0p+GQes9Vsa8s2QkkXWZXMM/Fb7tWhwIs9oJQmi8U8e9lf8XyTb9qzQAcSFN6Unv/2pOCmBk6RJ3feJN082JxW8kKaw1J0SMDP5EbfTQCQqqHTUo/C++aNANisV9u564ai25ixNLjApXxLXK99F7GpV1mzcszfn4d1l0RzwlPJfycqfuZZMKB0PElwvU3EwDX4rYFBPnncZhQ5IOcMXQLFhDu/PAzYkyE4LNHZFTKja0MvL/tuuzvNc5wAnHiHblHtBfSDVDo0MauU4E0Nw0E7aJlkD1cMuKybJ0/3jooArcUYjeA5Poz2kgE0l7Faa4G2MEPwBk25gNCl6re2kByCccY8axZtLktlQB+c4kWgFe4VmTj12pkMOv040z+8zp3xo1W1rAS1hAJv2KqrGAN9AQGlOJAVD1BqNI6mA2FEKdT+gCVvY8sYgCPkV6cPTaFu4zfeyIDuvrzCJepGhDyg4utmRwlA5e7j1fwIQ2nHnS6q6d/sUpsdnFL708ud9LwgnqvEKo+OtjWopUPZkrAsAvmDiLWK5bTLtGpG8einoqePF40PTxh4oYrWtOxmMVEfHpRvoM/NtrXIRJBaFkT9eelEutVvgld4estYZKqywm2ksqcX7sTsHUiHouwTVwA309ym7cCAi5+ECUm3kAAxFYGcFJo3c9GxxJa8+Xt2+iOPG0jKEc3oM19O9JRb9CuAWq5ohw4VRzbcEtaJzb2zgUA7D488G6StxbLNob5BRIsG6/fSkQYNTHTwu41ZT30kJsM1j1soJUkQyVtT6jTlOeEZKW0vpxuTeOMgj2l7cEOg8phAM4IsjaY5Dg=ZZftjv",
-            "user7777": "happ://crypt5/neiraz7imNeFpO1h2w195uOC2r3/u3xmD6gGK+aSUu1YQvHGtAmR17HQQYGeaMPJW4ufguNc+UxWVmX/tq+vt2R+byNger/7l4+T2TEFAs3arbttxsr3VnKGvdrMyGQdHV2w1aJirUq3++3rHA0vWMkvF/m7DPIkV6Yd8xyql3EGkOrpn4jBrR8JryrpTK6oqiJd5V75foabMN3Swl5vaTH5LbwtUNC+3fm+HhcdjrvCSBpxH2B1WlpclkUjivSw8cNTfK7WmXXcRpjwfTbOv8Srw4/9QEqm6cHtfHkqWJiTLoWUIK9WoG6ItpYNmDB5rD1P2QSPJoqD5lqy33JUPmFrAhbD13/ZYCOrWH2QFvgeWS+gL9bKu2y1QVZu/CJMHzkCSVQl4EAnwM5sj0e7GxHzUhgmxr8w1BlYsRGVVyoJRYGmGT+D66x/sH0sWhnWhzDXc7w80iEbENnakyOjj1r9PVDLgHjC7+BLyOLIWoNxMvsgAvBm7qngbpFowW4p4ZQmioN+nZh9K2kcuXnIhfknvXIGAWnL4GWzSD/3MRK1B6UPzMYY9IteCECXhlaLoYiuyNd0zRKPPJwZs86doyNA2quc3Og+sBnKZQtCe9Vzj54spNPTNkOlNB3re/rIdfYvbwUyZxPX2srju5pHPKPD2revqzBko5IN+EUGCqpmBD8SYTfRZ3qjp3BG6mcKi2UcwFLj8nf9xebtP2mMRjeq+6/dhW64ZR1xUIU5I3lqCBDLioWxvXhm8jvp10LS9s+paDUnQZcAzykRjP/9WB33WyL0ILtBBNpsCNYVHRzDe+b6uiMsqNrc78R9ohrjs/r3yZViLQNOJl4SKZrTr8Nn1WX9Vrw9hQrdPz7bCu8ZprEIYSs5CFXaINYYY=xHftjv",
-            "user8888": "happ://crypt5/neirhxejw8Zs2pN22k19Bp8v8JdHW+x3QR7BroFN8Sd118fUgY8NqTgzjp2TtYKNGLo9bQO4A8rAAkoWa1IwI7T9pOP22Vuj7S7e0u+jlSsmsJYKrE0NhMEZvyaX7qy6RE5KYEOCoBZSeUSYO+VjRCHpXnMsfLwPJoutux+eIcj4EOhYGskvghtNXQrr+wLPqc4dEOR1/QiuRgjPqow3nirdbOXksWNMcLQwSf0M1kaEW8Tp93vvyfeR7GNA6KSS76vRQID3CtvgttboCAIEAr4ELwXgpQ00w0m5JwYnukO2l7+cWB0cLq76SXDol5mpVpY8Ney4vNSkCM2tGxzfr4b9KLoN+r89nXryaujm2gUag7Yra6TabjCJXnv2McXWIP1EAz84UR8hmnJQxNwkJj9XbdtUKcx9D8XASVZUxqfscV4qPb7WaltUfy4dr7LnOFRICpFUN4uWqeZKRHIAkPVMKuKeN1hQPFmliBvuM2VhGKsaopTsfObKoUanvpzYJf++3MAGqEj3ok/nibZTYucmjtoxcWp/HFdosa05PR+H81YP6Jbt+6bxYVEIDIm3rSRIcu+TQpSVX0qygTViaD8wVB7M/Q2Pk7rqKGnYTJoHaMGTLs/PvrL6S3VieBJsPHAWpJpT4UIDqZfWwu3rH3ZMANQe5G12HgIdb5b2/ItUbqczn3BaGJyF3Ki41wzm9P+XTFkCow80i9cAIZSo83aZ7tpKFlJV6j3eGcTeciFf+nB1DzcRjiWiEojl69XAFhQZdKefHV07ikROuGoF/B57sHLXl0uqA+QVVixOQdpC+85VqYlogT8M4AVecmDy1KV3rsU/QCpO7Xf5Fmk7vzlWXrZm3kFmaXKAugWca+toSw35o24JXC+LHBGPo8g=fJftjv",
-            "user9999": "happ://crypt5/neiryHC9wdcJVgQj2b19sFhdV2RXcRFtWaITuL/ZyqfeS6EA5OAB6qPyuBIk8P0eB+qqgtrQuyBgyi9V2EuZb2Um6JDBL9UFIypwdEelNH3Kf+MiUdH+zS8KWYS60lhQgWJr2088aIvwRzAWywHgpOD1bkS5WwAPfhQa2fflQcjISAu0dekylERDc3p7G75AWKnek3QiLOyZukhCOkbR5sqaUhJdYi/VpsbGtO3Th2tA+IdH7hqE98bO/dZcf16eZsNdXBtDtfYcDAoqRPc6SHOdGzU/qBBTQ6FnY4AJUL5e2cKq72MOnFOHPrd41YMB0CPtUhzA0KudvRDbM6va6tsRGzicqli6NM05kvJvZDsddpCVa3s0VsZRPfDTWneFY2i8YENw4nsaJLslycKKc9YBQGarI9lBGiyTxAuSgsL/B467sxU++ynYc0U7Q8Xu1x1cWE+HDOkU5K/T920KvtlIJDWOy9pBbk1a+yDTEVAbDtB6a3GolxqkbwiQaKOWlMq0xKEtjwdo/XvnUspJsw9hji7R1TePBz5UnmsxGJ8s7DTYzIhduL5eV3ruiiHDwCPqcSrGmoEr3e4NKhmjpkLdRxt14gSbjOb8Aq/p1yV9++Ta2QLIs0b8PhNmKPUheEqT5iU6kXVayJ8Dx27hYcXoiKexI/qk9MHYx8sqfJIOxUOUbFFGTQapA5D7IXT3Bu2t0yVN39etn1Y78Ab58eZP15Ot+S8z8dqXWNBefQ17gTfeIWxxP7oUGFnp8pFgB0PnF8Ae63U+6Aga1yBvuht7qUT9KG4K/H7dlfyr2ewQa+yO5VBIsttTA4mv7bB6Z6y5/NMPFDTuWc+tfRD6Un91BO6O/wWWtp3jsQynrQQXWDOS7/MRD2DOiYui4=JTftjv",
-            "user2233": "happ://crypt5/neirLVLNX9seKGrn2o19drOZIceJb/ord/lU0x5xB+g9kqdyDdaymH3ROWeF8t17/j1G+wGl41Pn9ykABUkKUA5hhxaP5osgbFu46oZhx0Rgj16jqCNv9jDpC3qyepMiAsBuGBaexkwtVk1yO0e7OVREfau1eSOpqOBiREBSQDFYQVKAs3s3V76xGAONHFWGUMWWUFlzgIexWSQz+spZWDxipyZ7TBFNMWnaAkBreMTBtDadSiZqKBDyP8eMOmWwUaaUTwZp8ijaI2A/UTO/PodRzCnw6+z1x8fx6yMW0i0YWjsgqpndVo3jTTsR4/RRERczdF2jLpKfiZ9RZbCiWDijsNWRHvyehmIjghhDieSKPts4A5ZrtInFPHDKqiZ0NqX2q169orvQuOmmJddewpj/o7oN428ZbiKbY/rXicG6WK+XgMtSBWAQIZyAdObtJWzSjpzvSC4RErKft59JLn6Ioha1X8gF6mG0YyX0R2oMeEyKATNNUXKbFyeIozMHr/kkycyGSVDS8gx2vXZw667iyCWDW5FTwFBafPYG66dgduKtZaoLreRhrjLbm3sDCxVzp4EevsBlNKBFXXUNG/VYmzT5PzkTYHXP9ZmKCndXzFiQLmSrjwjrkf8yNK+OOdIx/2NRnUGskYFjtomb7oGNfGqtzTjy/nENY5ZzQ1yt3uGpbLf1Yac4uA+sySYK43rCP6wE5xF1khbDD/AKMMtUzWuoNszvwuVZt3DMmkqjMesplovT5p5KQO+VFIFHXMlxqmhdv/u91rOeEO6aV//Bb0RtwGZTPYIcsvnKY7Ll0sANZugZJrXyWXTw6m0cCfUTI+xCLFwFFkRUk/R7aJuvzfPdAqhYTbXnBJvjuVLkIbN+pVK1WtSEw6PZk=tFftjv",
-            "user4455": "happ://crypt5/neircSH3V6dFUEfV2f196DHVDTrm8iI9yDYLok1TGantRYM7p3qPv7qwR3zP+EbPvOn8ixEcwcIkdA7nOlrLTZZG4I2DApEfz60qCdZMFfUURLZsu9sBRUL5w6cXukvw+NzTCNV4CKK8GoE/5+QUTUB6kheFSmacWUtvB3Zd3cHsjkhgRMtgQ15bUmLFJuOArLwOFU8dBo73rULnI7qQVYUyQc6pj/teEeQ57WOBkZfPjpNY1A+qCm8hFIQEFcentOJnjbCPjaPgWC3pDX+L26ZjAO4CXjGz/is5ExjDj8L8RwB2oiSIZkXGNFapLHypM0HAp0ddPhOJrg82SoIbhgQDCcp/tflu812S83n9QdzYOcAwyKE/yCafjrrpfRNeVCZDwaYWOq/OstQL/Bnm7ydAmHtNvw/So5/y2yXrmemWqxIMEZg3JYh45lMoZJlOI4ubxAFD2uB30QgJ7JWFUABaPw5Er3SUNPuy6qN1zReSO3HdsnEMMWiAtt249G4fnaMBpTbabAQwofOYiMFpnkthM8U46PHVG8PHKO0bDGjfdOiIpQV6t+R/r2xLG5h6oEmFU53dv2EflyVi1gJFeU/zbBp38pfVgXE1Iietgz8BkvfcBI6ZnMHU1Mp3+x9A4ggY6z2POc+a+qAPlZS2LbAEtzYJI8F1eXmCMXAYYOtPRBgS4XBx3RTcJ5wnUcjGKp4pBKAIfsvivr58iQD/MkTW25fRvHKzT36G5pmtMopNWSA8lukKgmu6k2Dl/l194udevQw+CjV/F3NDJu4/OAjIZDmTRAU+AkEjSSxwiH7smBJbrandtUKcx9D8XASVZUxqfscV4qPb7WaltUfy4dr7LnOFRICpFUN4uWqeZKRHIAkPVMKuKeN1hQPFmliBvuM2VhGKsaopTsfObKoUanvpzYJf++3MAGqEj3ok/nibZTYucmjtoxcWp/HFdosa05PR+H81YP6Jbt+6bxYVEIDIm3rSRIcu+TQpSVX0qygTViaD8wVB7M/Q2Pk7rqKGnYTJoHaMGTLs/PvrL6S3VieBJsPHAWpJpT4UIDqZfWwu3rH3ZMANQe5G12HgIdb5b2/ItUbqczn3BaGJyF3Ki41wzm9P+XTFkCow80i9cAIZSo83aZ7tpKFlJV6j3eGcTeciFf+nB1DzcRjiWiEojl69XAFhQZdKefHV07ikROuGoF/B57sHLXl0uqA+QVVixOQdpC+85VqYlogT8M4AVecmDy1KV3rsU/QCpO7Xf5Fmk7vzlWXrZm3kFmaXKAugWca+toSw35o24JXC+LHBGPo8g=5tftjv"
-            }
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // БАЗА ДАННЫХ ТВОИХ КЛЮЧЕЙ
+        const vpnConfigs = {
+            "1": "happ://crypt5/neirKslQ3JuuzwvW2l19vfJdhxq0L98nBqgg9Pso/HyBg5W1rE2LN6s/5bmIagQ+LfC4YPYGCXFvl3qwphd4WjKIPKS0bdZ7lSmS/qNHFAF3q3xbIO2ObmrOH5BFLxQwzlQFrhK9e74jyNtdo/sEUeYhKaflGKv2A+BZ/zq1NGYe7dfEluHIooBdPtFdfl0FgNcssOOfyK6vC1KgYKVnkPcjTFmtKLn7jkyUbll3tQUz9CwqSUhbRleX+1qJw9uDzqPoHfnF7h2zsNn1bJkyxK7H6SG4EOEDRUqmFpmFkVCl9geftXD8AGgAB+djGkkItAnwKJXNSjZZTyDwUk6ICF77LV3g2GoynzpFhHraunKAUe4OUe2XiC+cidwp8lzuJcU8LgNu0NpB1VlrN63ATET+UR0+QkFzrI28AfOuK9Vvi7UXtJsi/p9mzopVq+x33oC/ehU6Lo21pwnfZL24hmjTJk06uUBTam5/uMW/MDCWPb52iVJt4nFaNOharHgjCqyyoa26lXOW3B2/OU2OEv8p6qvezdGMdohPAwEXk9M+QFJGWjvkadn20CIaPvek+++TTz2xOfLBrmxVwLNZCjWnVfcIup2t8aT31X5znXwftOvahEemVk7W5fYymnN/zX3+JpXYtLyOegDetz5lT9Fv8wdTjH3nlvv1+AvevUQ+h+G4wNzDBzE7dPW9xYoUwNy4MKVVATI2DeiwgEFLKRIrcGsAIoAC90K6Q4OF7ZTakndT5WAnpbfUKEzGeJQD8f1D3e87a6iG3MneCzf29jJp8hl62Nc9/n6Z4wOJjvoUld6NaRHNeE4py0QPxicwpO4iZaQoOxOQMh7042Xpezd8qfeLrROHCRncBbz4ycFQRogO3srqcypkgkew4=B2ftjv",
+            "2": "happ://crypt5/neiryfqliybLAUqF2f19Ph+Fjf6uS+ZHGCHii4MqT5PL1n67361Ttu+M7gpm0IYN5b67Ra+/EE3CG+laG7pN1tLmWPh5Mv0YPy7/OlOy7jF0EpnYjjpwoyDPkbpulQ++/V/0WgPrDl3Q3kB7RurtBpSbPMVhF9HUvDOPOXIY2tE/NWJI+XtRwWo99Dz5/Cx4ameJWHmk69N2ED3fEmhkQ9JIU4D+HcqW8P1aeMqqMjtdvVTPzME3FrWbEjJCPIkRxTXktMNMGcjUwjKOyudSwqXwYcaUzmCBnlu1gPzn+Ape0nsKwAPX2L44wXQDfSt5uEeGOzQFXCzOxI1j+YMeoIOb4HFYZ1RXA5wcPrF3w+/ikajpwtvweBLLDCJI0RuOmPLGxOYZeYvQ74c91yDQqVDF+puVaTR83JrR6OSZ6iB9PuU0TuRiJAoEsje0WLbaB/BuXHfAgmo5CfsJV/rDPJ8L6Y9wZIIxb8Ho10bPaUq2y6xMO9jF3nmZHBc3aLJuO9tN8jT5q295xh4yQJe+2ih5lC16i6OzUeQEfhyIiYjkqgRKHYuECqk1GFfr11RRmpObZfkaCWs66xdU67vK3UwXiED/nb6YaUenzq4jTy7CTWrSYoAUiRU7j+19rPGkGf6RiJ4T7qFE8epsZ6P0qTpcUFfi270JSPXsThN3XWQRkSKr5QHWRNCt3otYJekz5i6Y+gxicsCqvHh18JrTzRQ4tlwaXizSLiBFgy16mh6UTNnPtmLJOIcZYNg1MHc1ZXfeEPgmcoNxaBDDwQ6C5UtiR7jWXw1xAvpQ8o4CxosAWVN2+vHPW+GBlCzBjrfdPAM1ALnX1GvAF+grTd7U4GLWbW2E7DIW+LdMnpHz85U/wG06mVy12gyLJzbVw=mWftjv",
+            "3": "happ://crypt5/neirvdah77Kh8c9e2t19yNrKrxk9U0CRsS094bETsCX8YT1v2NQOdEWAEL3EbO0g6f6gtb9wQ3S6tduTXYFAr8zdwgKufSNuXfLWFq3HLQvk5s6fDXNzf+7VoeC5JX6cSNWMhS7a3gGxI0uxCA2d7oxArZ5TrB0DbTolARqlnC6M2taW9pyb7aVlw7wA7hw2ptls85uI9o1NnyQdjfQJbaVyEIgisQ7IyaUIq628r8SRnhKPpILvPju215O9OqZ/FcapXTWkD42XGFwcJ9pWKYSxNkBvQhXslX4/qK+Ou+ZdP9NE60PV65iiRZQ7Htn0/3eQye4hz2wq+4ckobPV6z7+KPVTALW9VC+yE9DtruBqELUGW3+uEcuMS9c9gswbHIQKm367NbU/ShvDqgfVeB/bsl9/Ki7qcEba/N7cL4Qu8TdgWFBQkzwvKSc2GkNFW+fpIe4D5nrMpp3V8IBw0CZ2kj4KXJ19e/lRDihaoCHC4lKxPO61zer9w34p9mzC51bJXB5tm+A2smcxDsmt653wYfmRrvpWrCRGsJmJjbPCSnnAkfKOGAq5Xq35OaUwOl7R+d4vSS2RjvNeY4yyZCsC2tSAt3VO1MXpWhYGEtMuDG+Nfux/HG2blfzoL6FUTGJVJkIxAAx3qbF22IMYAcOzKSyFY7Y96hRZB/mAmQLiphb1diIgEkDNAaVMcYI+3MnGlTJ/t+pA5yvbv6IZW9Hd9m0NIyqWerJBROclAjRcN40t8vFUdSP1llwAV2kjy5KH9kFU7fYlLq/hqlNuRccOYGmaSlZ68pISCalHlEluRiHESAijAhqrOLwnx+Afz4Q2tM3WhzAXkK7Beb0Vu2ZKTg8YuSwOoRYmLmPGq4qPLNE/sqGxcaTJsq4sI=n+ftjv",
+            "4": "happ://crypt5/neir98mHGhUdVkLA2h19ktbTj+FDqRQs5jO4Djm3AlmV83g/dz6iCqNJ8oG6HEDlp0p+GQes9Vsa8s2QkkXWZXMM/Fb7tWhwIs9oJQmi8U8e9lf8XyTb9qzQAcSFN6Unv/2pOCmBk6RJ3feJN082JxW8kKaw1J0SMDP5EbfTQCQqqHTUo/C++aNANisV9u564ai25ixNLjApXxLXK99F7GpV1mzcszfn4d1l0RzwlPJfycqfuZZMKB0PElwvU3EwDX4rYFBPnncZhQ5IOcMXQLFhDu/PAzYkyE4LNHZFTKja0MvL/tuuzvNc5wAnHiHblHtBfSDVDo0MauU4E0Nw0E7aJlkD1cMuKybJ0/3jooArcUYjeA5Poz2kgE0l7Faa4G2MEPwBk25gNCl6re2kByCccY8axZtLktlQB+c4kWgFe4VmTj12pkMOv040z+8zp3xo1W1rAS1hAJv2KqrGAN9AQGlOJAVD1BqNI6mA2FEKdT+gCVvY8sYgCPkV6cPTaFu4zfeyIDuvrzCJepGhDyg4utmRwlA5e7j1fwIQ2nHnS6q6d/sUpsdnFL708ud9LwgnqvEKo+OtjWopUPZkrAsAvmDiLWK5bTLtGpG8einoqePF40PTxh4oYrWtOxmMVEfHpRvoM/NtrXIRJBaFkT9eelEutVvgld4estYZKqywm2ksqcX7zTsHUiHouwTVwA309ym7cCAi5+ECUm3kAAxFYGcFJo3c9GxxJa8+Xt2+iOPG0jKEc3oM19O9JRb9CuAWq5ohw4VRzbcEtaJzb2zgUA7D488G6StxbLNob5BRIsG6/fSkQYNTHTwu41ZT30kJsM1j1soJUkQyVtT6jTlOeEZKW0vpxuTeOMgj2l7cEOg8phAM4IsjaY5Dg=ZZftjv",
+            "5": "happ://crypt5/neiraz7imNeFpO1h2w195uOC2r3/u3xmD6gGK+aSUu1YQvHGtAmR17HQQYGeaMPJW4ufguNc+UxWVmX/tq+vt2R+byNger/7l4+T2TEFAs3arbttxsr3VnKGvdrMyGQdHV2w1aJirUq3++3rHA0vWMkvF/m7DPIkV6Yd8xyql3EGkOrpn4jBrR8JryrpTK6oqiJd5V75foabMN3Swl5vaTH5LbwtUNC+3fm+HhcdjrvCSBpxH2B1WlpclkUjivSw8cNTfK7WmXXcRpjwfTbOv8Srw4/9QEqm6cHtfHkqWJiTLoWUIK9WoG6ItpYNmDB5rD1P2QSPJoqD5lqy33JUPmFrAhbD13/ZYCOrWH2QFvgeWS+gL9bKu2y1QVZu/CJMHzkCSVQl4EAnwM5sj0e7GxHzUhgmxr8w1BlYsRGVVyoJRYGmGT+D66x/sH0sWhnWhzDXc7w80iEbENnakyOjj1r9PVDLgHjC7+BLyOLIWoNxMvsgAvBm7qngbpFowW4p4ZQmioN+nZh9K2kcuXnIhfknvXIGAWnL4GWzSD/3MRK1B6UPzMYY9IteCECXhlaLoYiuyNd0zRKPPJwZs86doyNA2quc3Og+sBnKZQtCe9Vzj54spNPTNkOlNB3re/rIdfYvbwUyZxPX2srju5pHPKPD2revqzBko5IN+EUGCqpmBD8SYTfRZ3qjp3BG6mcKi2UcwFLj8nf9xebtP2mMRjeq+6/dhW64ZR1xUIU5I3lqCBDLioWxvXhm8jvp10LS9s+paDUnQZcAzykRjP/9WB33WyL0ILtBBNpsCNYVHRzDe+b6uiMsqNrc78R9ohrjs/r3yZViLQNOJl4SKZrTr8Nn1WX9Vrw9hQrdPz7bCu8ZprEIYSs5CFXaINYYY=xHftjv",
+            "6": "happ://crypt5/neirhxejw8Zs2pN22k19Bp8v8JdHW+x3QR7BroFN8Sd118fUgY8NqTgzjp2TtYKNGLo9bQO4A8rAAkoWa1IwI7T9pOP22Vuj7S7e0u+jlSsmsJYKrE0NhMEZvyaX7qy6RE5KYEOCoBZSeUSYO+VjRCHpXnMsfLwPJoutux+eIcj4EOhYGskvghtNXQrr+wLPqc4dEOR1/QiuRgjPqow3nirdbOXksWNMcLQwSf0M1kaEW8Tp93vvyfeR7GNA6KSS76vRQID3CtvgttboCAIEAr4ELwXgpQ00w0m5JwYnukO2l7+cWB0cLq76SXDol5mpVpY8Ney4vNSkCM2tGxzfr4b9KLoN+r89nXryaujm2gUag7Yra6TabjCJXnv2McXWIP1EAz84UR8hmnJQxNwkJj9XbdtUKcx9D8XASVZUxqfscV4qPb7WtUfy4dr7LnOFRICpFUN4uWqeZKRHIAkPVMKuKeN1hQPFmliBvuM2VhGKsaopTsfObKoUanvpzYJf++3MAGqEj3ok/nibZTYucmjtoxcWp/HFdosa05PR+H81YP6Jbt+6bxYVEIDIm3rSRIcu+TQpSVX0qygTViaD8wVB7M/Q2Pk7rqKGnYTJoHaMGTLs/PvrL6S3VieBJsPHAWpJpT4UIDqZfWwu3rH3ZMANQe5G12HgIdb5b2/ItUbqczn3BaGJyF3Ki41wzm9P+XTFkCow80i9cAIZSo83aZ7tpKFlJV6j3eGcTeciFf+nB1DzcRjiWiEojl69XAFhQZdKefHV07ikROuGoF/B57sHLXl0uqA+QVVixOQdpC+85VqYlogT8M4AVecmDy1KV3rsU/QCpO7Xf5Fmk7vzlWXrZm3kFmaXKAugWca+toSw35o24JXC+LHBGPo8g=fJftjv",
+            "7": "happ://crypt5/neiryHC9wdcJVgQj2b19sFhdV2RXcRFtWaITuL/ZyqfeS6EA5OAB6qPyuBIk8P0eB+qqgtrQuyBgyi9V2EuZb2Um6JDBL9UFIypwdEelNH3Kf+MiUdH+zS8KWYS60lhQgWJr2088aIvwRzAWywHgpOD1bkS5WwAPfhQa2fflQcjISAu0dekylERDc3p7G75AWKnek3QiLOyZukhCOkbR5sqaUhJdYi/VpsbGtO3Th2tA+IdH7hqE98bO/dZcf16eZsNdXBtDtfYcDAoqRPc6SHOdGzU/qBBTQ6FnY4AJUL5e2cKq72MOnFOHPrd41YMB0CPtUhzA0KudvRDbM6va6tsRGzicqli6NM05kvJvZDsddpCVa3s0VsZRPfDTWneFY2i8YENw4nsaJLslycKKc9YBQGarI9lBGiyTxAuSgsL/B467sxU++ynYc0U7Q8Xu1x1cWE+HDOkU5K/T920KvtlIJDWOy9pBbk1a+yDTEVAbDtB6a3GolxqkbwiQaKOWlMq0xKEtjwdo/XvnUspJsw9hji7R1TePBz5UnmsxGJ8s7DTYzIhduL5eV3ruiiHDwCPqcSrGmoEr3e4NKhmjpkLdRxt14gSbjOb8Aq/p1yV9++Ta2QLIs0b8PhNmKPUheEqT5iU6kXVayJ8Dx27hYcXoiKexI/qk9MHYx8sqfJIOxUOUbFFGTQapA5D7IXT3Bu2t0yVN39etn1Y78Ab58eZP15Ot+S8z8dqXWNBefQ17gTfeIWxxP7oUGFnp8pFgB0PnF8Ae63U+6Aga1yBvuht7qUT9KG4K/H7dlfyr2ewQa+yO5VBIsttTA4mv7bB6Z6y5/NMPFDTuWc+tfRD6Un91BO6O/wWWtp3jsQynrQQXWDOS7/MRD2DOiYui4=JTftjv",
+            "8": "happ://crypt5/neirLVLNX9seKGrn2o19drOZIceJb/ord/lU0x5xB+g9kqdyDdaymH3ROWeF8t17/j1G+wGl41Pn9ykABUkKUA5hhxaP5osgbFu46oZhx0Rgj16jqCNv9jDpC3qyepMiAsBuGBaexkwtVk1yO0e7OVREfau1eSOpqOBiREBSQDFYQVKAs3s3V76xGAONHFWGUMWWUFlzgIexWSQz+spZWDxipyZ7TBFNMWnaAkBreMTBtDadSiZqKBDyP8eMOmWwUaaUTwZp8ijaI2A/UTO/PodRzCnw6+z1x8fx6yMW0i0YWjsgqpndVo3jTTsR4/RRERczdF2jLpKfiZ9RZbCiWDijsNWRHvyehmIjghhDieSKPts4A5ZrtInFPHDKqiZ0NqX2q169orvQuOmmJddewpj/o7oN428ZbiKbY/rXicG6WK+XgMtSBWAQIZyAdObtJWzSjpzvSC4RErKft59JLn6Ioha1X8gF6mG0YyX0R2oMeEyKATNNUXKbFyeIozMHr/kkycyGSVDS8gx2vXZw667iyCWDW5FTwFBafPYG66dgduKtZaoLreRhrjLbm3sDCxVzp4EevsBlNKBFXXUNG/VYmzT5PzkTYHXP9ZmKCndXzFiQLmSrjwjrkf8yNK+OOdIx/2NRnUGskYFjtomb7oGNfGqtzTjy/nENY5ZzQ1yt3uGpbLf1Yac4uA+sySYK43rCP6wE5xF1khbDD/AKMMtUzWuoNszvwuVZt3DMmkqjMesplovT5p5KQO+VFIFHXMlxqmhdv/u91rOeEO6aV//Bb0RtwGZTPYIcsvnKY7Ll0sANZugZJrXyWXTw6m0cCfUTI+xCLFwFFkRUk/R7aJuvzfPdAqhYTbXnBJvjuVLkIbN+pVK1WtSEw6PZk=tFftjv",
+            "9": "happ://crypt5/neircSH3V6dFUEfV2f196DHVDTrm8iI9yDYLok1TGantRYM7p3qPv7qwR3zP+EbPvOn8ixEcwcIkdA7nOlrLTZZG4I2DApEfz60qCdZMFfUURLZsu9sBRUL5w6cXukvw+NzTCNV4CKK8GoE/5+QUTUB6kheFSmacWUtvB3Zd3cHsjkhgRMtgQ15bUmLFJuOArLwOFU8dBo73rULnI7qQVYUyQc6pj/teEeQ57WOBkZfPjpNY1A+qCm8hFIQEFcentOJnjbCPjaPgWC3pDX+L26ZjAO4CXjGz/is5ExjDj8L8RwB2oiSIZkXGNFapLHypM0HAp0ddPhOJrg82SoIbhgQDCcp/tflu812S83n9QdzYOcAwyKE/yCafjrrpfRNeVCZDwaYWOq/OstQL/Bnm7ydAmHtNvw/So5/y2yXrmemWqxIMEZg3JYh45lMoZJlOI4ubxAFD2uB30QgJ7JWFUABaPw5Er3SUNPuy6qN1zReSO3HdsnEMMWiAtt249G4fnaMBpTbabAQwofOYiMFpnkthM8U46PHVG8PHKO0bDGjfdOiIpQV6t+R/r2xLG5h6oEmFU53dv2EflyVi1gJFeU/zbBp38pfVgXE1Iietgz8BkvfcBI6ZnMHU1Mp3+x9A4ggY6z2POc+a+qAPlZS2LbAEtzYJI8F1eXmCMXAYYOtPRBgS4XBx3RTcJ5wnUcjGKp4pBKAIfsvivr58iQD/MkTW25fRvHKzT36G5pmtMopNWSA8lukKgmu6k2Dl/l194udevQw+CjV/F3NDJu4/OAjIZDmTRAU+AkEjSSxwiH7smBJprdQK1WTm7zBOewdfj63vuMSTBHadRxIpZsU/H1L0Ctbae3RBEDz+nDqUlupHLh9Sd16usfxId2nYA=5tftjv"
         };
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const userKey = urlParams.get('key');
+        const key = getQueryParam('key');
+        const connectBtn = document.getElementById('connect-btn');
+        const errorBox = document.getElementById('error-box');
+        const statusText = document.getElementById('status-text');
 
-        const contentDiv = document.getElementById('content');
-        const errorDiv = document.getElementById('error-message');
-        const vpnLinkBtn = document.getElementById('vpn-link');
-
-        if (userKey && config[userKey.toLowerCase()]) {
-            vpnLinkBtn.href = config[userKey.toLowerCase()];
-            contentDiv.style.display = 'block';
+        if (key && vpnConfigs[key]) {
+            // Привязываем готовую happ://crypt5 ссылку к кнопке
+            connectBtn.href = vpnConfigs[key];
+            statusText.innerText = `Конфигурация #${key} готова к подключению`;
         } else {
-            errorDiv.style.display = 'block';
+            // Если ключ не передан или он неправильный
+            connectBtn.style.opacity = '0.5';
+            connectBtn.style.pointerEvents = 'none';
+            errorBox.style.display = 'block';
         }
     </script>
-
 </body>
 </html>
